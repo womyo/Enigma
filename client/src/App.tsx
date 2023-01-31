@@ -32,6 +32,7 @@ const App = () => {
   const chatContainerEl = useRef<HTMLDivElement>(null);
 
 
+  // 스크롤 사용자에 맞춰서
   useEffect(() => {
     if (!chatContainerEl.current) return;
 
@@ -59,7 +60,7 @@ const App = () => {
 
 
   const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setMessage(e.target.value);
+    setMessage(e.target.value); // type each word
   }, []);
 
 
