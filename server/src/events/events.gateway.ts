@@ -13,15 +13,7 @@ import {
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {Namespace, Socket} from 'socket.io';
-
-const firstRotor: string[] = ['B','D','F','H','J','L','N','P','R','T','V','X','Z','A','C','E','G','I','K','M','O','Q','S','U','W','Y'];
-const secondRotor: string[] = ['E','J','O','T','Y','C','H','M','R','W','A','F','K','P','U','Z','D','I','N','S','X','B','G','L','Q','V'];
-const thirdRotor: string[] = ['G','N','U','A','H','O','V','B','I','P','W','C','J','Q','X','D','K','R','Y','E','L','S','Z','F','M','T'];
-
-const plugBoard: string[] = ['Z','P','H','N','Q','S','W','C','I','Y','T','M','E','D','O','B','L','R','F','K','U','V','G','X','J','A'];
-
-const reflect = new Map<string, string>([['A', 'O'], ['B', 'K'], ['C', 'F'], ['D', 'P'], ['E', 'G'], ['F', 'C'], ['G', 'E'], ['H', 'X'], ['I', 'N'], ['J', 'Y'], ['K', 'B'], 
-['L', 'Q'], ['M', 'Z'], ['N', 'I'], ['O', 'A'], ['P', 'D'], ['Q', 'L'], ['R', 'U'], ['S', 'V'], ['T', 'W'], ['U', 'R'], ['V', 'S'], ['W', 'T'], ['X', 'H'], ['Y', 'J'], ['Z', 'M']]);
+import { Enigma } from 'src/enigma/enigma';
 
 // open socket in 8080 port
 @WebSocketGateway({
@@ -73,38 +65,15 @@ export class EventsGateway
         @ConnectedSocket() socket: Socket,
         @MessageBody() message: string, // what i typed
 
-        ) {
-            let spiltStr = [...message];
+        ) { 
+            let rotor: string[][] = [['B','D','F','H','J','L','N','P','R','T','V','X','Z','A','C','E','G','I','K','M','O','Q','S','U','W','Y'],
+        ['E','J','O','T','Y','C','H','M','R','W','A','F','K','P','U','Z','D','I','N','S','X','B','G','L','Q','V'],
+        ['G','N','U','A','H','O','V','B','I','P','W','C','J','Q','X','D','K','R','Y','E','L','S','Z','F','M','T']];
+            const enigma = new Enigma(rotor);
 
-            let alp: string = spiltStr[0];
-            console.log(alp);
+            let ans: string = enigma.messageCipher(message);
 
-            let idx: number = alp.charCodeAt(0) - 'A'.charCodeAt(0);
-            console.log(plugBoard[idx]);
-
-            let plugBoardAlp: string = plugBoard[idx];
-
-            let rotorGoIdx: number = firstRotor.indexOf(plugBoardAlp);
-
-            console.log(firstRotor[rotorGoIdx]);
-            console.log(secondRotor[rotorGoIdx])
-            console.log(thirdRotor[rotorGoIdx])
-
-            let refle: string = reflect.get(thirdRotor[rotorGoIdx]);
-            console.log(refle);
-
-            let rotorBackIdx: number = thirdRotor.indexOf(refle);
-
-            console.log(thirdRotor[rotorBackIdx])
-            console.log(secondRotor[rotorBackIdx])
-            console.log(firstRotor[rotorBackIdx])
-
-            let iddx: number = plugBoard.indexOf(firstRotor[rotorBackIdx]);
-
-            console.log(String.fromCharCode(iddx + 'A'.charCodeAt(0)));
-
-
-            socket.broadcast.emit('message', { username: socket.id, message: message}); // showing in others interface
+            socket.broadcast.emit('message', { username: socket.id, message: ans}); // showing in others interface
             return { username: socket.id, message: message }; // showing in my interface
     }
 }
