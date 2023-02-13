@@ -1,11 +1,11 @@
 import { Module } from "@nestjs/common";
 import { DailyModule } from "../daily/daily.module";
-import { BatchService } from "./batch.service";
+import { EnigmaService } from "./enigma.service";
 
 @Module({
   imports: [DailyModule],
   controllers: [],
-  providers: [BatchService],
-  exports: [],
+  providers: [EnigmaService],
+  exports: [EnigmaService],
 })
-export class BatchModule {}
+export class EnigmaModule {}

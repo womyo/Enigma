@@ -1,16 +1,16 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity() 
+@Entity()
 export class Daily {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    plugboard: string;
-    
-    @Column('longtext')
-    rotor: string;
+  @Column()
+  plugboard: string;
 
-    @Column('longtext') 
-    reflector: string;
+  @Column("longtext")
+  rotor: string;
+
+  @Column("longtext")
+  reflector: string;
 }
