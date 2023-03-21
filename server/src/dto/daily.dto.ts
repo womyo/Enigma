@@ -1,6 +1,6 @@
-import { IsString, IsOptional, IsNumber } from "class-validator";
+import { IsString, IsNumber } from "class-validator";
 
-export class CreateDailyDto {
+export class DailyDto {
   @IsNumber()
   id: number;
 

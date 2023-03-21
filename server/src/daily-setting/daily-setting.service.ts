@@ -1,21 +1,21 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import { CreateDailyDto } from "../dto/create-daily.dto";
-import { Daily } from "../entities/daily.entity";
+import { DailyDto } from "../dto/daily.dto";
+import { DailySetting } from "../entities/daily-setting.entity";
 
 @Injectable()
 export class DailyService {
   constructor(
-    @InjectRepository(Daily)
-    private dailyRepository: Repository<Daily>
+    @InjectRepository(DailySetting)
+    private dailyRepository: Repository<DailySetting>
   ) {}
 
-  async create(createDailyDto: CreateDailyDto): Promise<void> {
-    await this.dailyRepository.save(createDailyDto);
+  async create(dailyDto: DailyDto): Promise<void> {
+    await this.dailyRepository.save(dailyDto);
   }
 
-  async findById(id: number): Promise<Daily> {
+  async findById(id: number): Promise<DailySetting> {
     const found = await this.dailyRepository.findOneBy({ id });
 
     if (!found) {

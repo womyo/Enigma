@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
-export class Daily {
+@Entity("daily_setting")
+export class DailySetting {
   @PrimaryGeneratedColumn()
   id: number;
 
