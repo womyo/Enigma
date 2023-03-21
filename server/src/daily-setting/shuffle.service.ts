@@ -1,5 +1,5 @@
-import { Injectable, Logger } from "@nestjs/common";
-import { CreateDailyDto } from "../dto/create-daily.dto";
+import { Injectable } from "@nestjs/common";
+import { DailyDto } from "../dto/daily.dto";
 
 @Injectable()
 export class ShuffleService {
@@ -50,7 +50,7 @@ export class ShuffleService {
     }
     return reflect;
   }
-  settingDaily(): CreateDailyDto {
+  settingDaily(): DailyDto {
     const plugboard = JSON.stringify(this.shuffleArray());
     const reflector = JSON.stringify(Array.from(this.shuffleMap().entries()));
     let rotor: string | string[][] = [];
@@ -59,13 +59,13 @@ export class ShuffleService {
       rotor.push(this.shuffleArray());
     }
     rotor = JSON.stringify(rotor);
-    const createDaily: CreateDailyDto = {
+    const daily: DailyDto = {
       id: 1,
       plugboard: plugboard,
       rotor: rotor,
       reflector: reflector,
     };
 
-    return createDaily;
+    return daily;
   }
 }

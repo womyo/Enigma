@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { DailyService } from "../daily/daily.service";
+import { DailyService } from "../daily-setting/daily-setting.service";
 const plugBoard: string[] = [
   "Z",
   "P",

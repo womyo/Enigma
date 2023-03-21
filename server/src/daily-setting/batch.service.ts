@@ -1,7 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
-import { DailyService } from "./daily.service";
-import { CreateDailyDto } from "../dto/create-daily.dto";
+import { DailyService } from "./daily-setting.service";
+import { DailyDto } from "../dto/daily.dto";
 import { ShuffleService } from "./shuffle.service";
 
 @Injectable()
@@ -15,8 +15,8 @@ export class BatchService {
 
   @Cron("0 0 0 * * *")
   handleCron() {
-    const createDaily: CreateDailyDto = this.shuffleService.settingDaily();
-    this.dailyService.create(createDaily);
+    const dailyDto: DailyDto = this.shuffleService.settingDaily();
+    this.dailyService.create(dailyDto);
     this.logger.debug("Midnight");
   }
 }
