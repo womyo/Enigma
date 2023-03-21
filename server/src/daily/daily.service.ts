@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import { CreateDailyDto } from "./dto/create-daily.dto";
-import { Daily } from "./entities/daily.entity";
+import { CreateDailyDto } from "../dto/create-daily.dto";
+import { Daily } from "../entities/daily.entity";
 
 @Injectable()
 export class DailyService {

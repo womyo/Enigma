@@ -13,7 +13,7 @@ import {
 import { from, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { Namespace, Socket } from "socket.io";
-import { EnigmaService } from "src/enigma/enigma.service";
+import { EnigmaService } from "src/chat/enigma.service";
 
 // open socket in 8080 port
 @WebSocketGateway({
@@ -66,7 +66,7 @@ export class EventsGateway
     @ConnectedSocket() socket: Socket,
     @MessageBody() message: string // what i typed
   ) {
-    let ans: string = this.enigmaService.messageCipher(message);
+    const ans: string = this.enigmaService.messageCipher(message);
 
     socket.broadcast.emit("message", { username: socket.id, message: ans }); // showing in others interface
     return { username: socket.id, message: message }; // showing in my interface

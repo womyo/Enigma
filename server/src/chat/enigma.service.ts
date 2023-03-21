@@ -1,6 +1,5 @@
-import { Injectable, Logger } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { DailyService } from "../daily/daily.service";
-import { serialize } from "class-transformer";
 const plugBoard: string[] = [
   "Z",
   "P",
@@ -58,7 +57,7 @@ const reflect = new Map<string, string>([
   ["Y", "J"],
   ["Z", "M"],
 ]);
-let rotor: string[][] = [
+const rotor: string[][] = [
   [
     "B",
     "D",
@@ -151,13 +150,12 @@ export class EnigmaService {
   today = this.dailyService.findById(1);
 
   letterCipher(alphabet: string): string {
-    console.log(serialize(this.today));
     let idx: number = alphabet.charCodeAt(0) - "A".charCodeAt(0);
-    let plugBoardAlp: string = plugBoard[idx];
-    let rotorGoIdx: number = rotor[0].indexOf(plugBoardAlp);
+    const plugBoardAlp: string = plugBoard[idx];
+    const rotorGoIdx: number = rotor[0].indexOf(plugBoardAlp);
     let encryptedAlp: string = rotor[2][rotorGoIdx];
-    let reflectedAlp: string = reflect.get(encryptedAlp);
-    let rotorBackIdx: number = rotor[2].indexOf(reflectedAlp);
+    const reflectedAlp: string = reflect.get(encryptedAlp);
+    const rotorBackIdx: number = rotor[2].indexOf(reflectedAlp);
 
     encryptedAlp = rotor[0][rotorBackIdx];
     idx = plugBoard.indexOf(encryptedAlp);
@@ -171,18 +169,18 @@ export class EnigmaService {
   }
   messageCipher(message: string) {
     let startIdx = 0,
-      idx,
-      indices = [];
+      idx;
+    const indices = [];
     while ((idx = message.indexOf(" ", startIdx)) > -1) {
       indices.push(idx);
       startIdx = idx + 1;
     }
-    let s = message.replace(/\s/g, "");
-    let spiltStr = [...s];
-    let ans: string = "";
+    const s = message.replace(/\s/g, "");
+    const spiltStr = [...s];
+    let ans = "";
 
     spiltStr.forEach((element, index) => {
-      let c = this.letterCipher(element);
+      const c = this.letterCipher(element);
       ans += c;
       this.shiftRotor(index);
     });

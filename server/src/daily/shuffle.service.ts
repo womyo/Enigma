@@ -1,12 +1,10 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { CreateDailyDto } from "./dto/create-daily.dto";
+import { CreateDailyDto } from "../dto/create-daily.dto";
 
 @Injectable()
 export class ShuffleService {
-  constructor() {}
-
   shuffleArray(): string[] {
-    let arr = [
+    const arr = [
       "A",
       "B",
       "C",
@@ -44,7 +42,7 @@ export class ShuffleService {
   shuffleMap() {
     const shuffledArray: string[] = this.shuffleArray();
     const half: number = Math.floor(shuffledArray.length / 2);
-    let reflect = new Map<string, string>([]);
+    const reflect = new Map<string, string>([]);
 
     for (let i = 0; i < half; i++) {
       reflect.set(shuffledArray[i], shuffledArray[i + half]);

@@ -1,8 +1,8 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
-import { DailyService } from "../daily/daily.service";
-import { CreateDailyDto } from "../daily/dto/create-daily.dto";
-import { ShuffleService } from "../daily/shuffle.service";
+import { DailyService } from "./daily.service";
+import { CreateDailyDto } from "../dto/create-daily.dto";
+import { ShuffleService } from "./shuffle.service";
 
 @Injectable()
 export class BatchService {
