@@ -5,9 +5,11 @@ import cookieParser from "cookie-parser";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+
   await app.listen(3333);
 }
 bootstrap();
